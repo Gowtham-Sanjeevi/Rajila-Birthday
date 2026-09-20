@@ -4,32 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CUSTOMIZE: Change the title -->
-    <title>Birthday Wishes 💖</title>
+    <title>Rajila's Birthday 💖</title>
     <!-- CUSTOMIZE: Change favicon -->
     <link rel="icon" type="image/png" href="favicon.png">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <link rel="stylesheet" href="./wishes.css">
 </head>
 <body>
-    <audio id="bgMusic" loop>
+    <!-- <audio id="bgMusic" preload="auto">
         <source src="hbd.mp3" type="audio/mpeg">
-    </audio>
+    </audio> -->
+
+    <audio id="birthdayMusicPlayer" preload="auto">
+    <source src="hbd.mp3" type="audio/mpeg">
+</audio>
     <div class="music-toggle" id="musicToggle" title="Toggle Music">
         <span class="music-icon">🎵</span>
     </div>
     <a href="index.html" class="back-btn" title="Go Back">←</a>
     <div class="custom-cursor">
         <svg viewBox="0 0 24 24">
-            <path fill="#ff69b4" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-        </svg>
+<path fill="#64B5F6" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>        </svg>
     </div>
 
     <div class="container">
         <!-- CUSTOMIZE: Change the name -->
+         <br>
         <h1>Happy Birthday Rajila 💖</h1>
 
         <div id="reasons-container"></div>
-
+<br>
         <button class="shuffle-button">Click Here... 💕</button>
         <div class="reason-counter"></div>
 
@@ -44,5 +48,6 @@
     </div>
 
     <script src="wishes.js"></script>
+    <script src="music.js"></script>
 </body>
 </html>

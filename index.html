@@ -3,70 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <!-- CUSTOMIZE: Change the title -->
     <title>Happy Birthday</title>
+
     <!-- CUSTOMIZE: Change favicon to your own icon -->
     <link rel="icon" type="image/png" href="favicon.png">
+
+    <!-- Dancing Script Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <!-- Preload Images - CUSTOMIZE: Update with your image names -->
     <link rel="preload" as="image" href="photo-1.jpg">
     <link rel="preload" as="image" href="photo-2.jpg">
     <link rel="preload" as="image" href="photo-3.jpg">
     <link rel="preload" as="image" href="gif1.gif">
     <link rel="preload" as="image" href="gif2.gif">
+
     <!-- Preload Audio -->
     <link rel="preload" as="audio" href="hbd.mp3">
+
+    <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <!-- Your CSS -->
     <link rel="stylesheet" href="home.css">
 </head>
+
 <body>
+
     <!-- Loading Screen -->
     <div id="loading-screen" class="loading-screen">
         <div class="loading-heart">💖</div>
         <div class="loading-text">Loading magic...</div>
     </div>
 
-    <audio id="bgMusic" loop>
+    <!-- Background Music -->
+    <!-- <audio id="bgMusic" preload="auto">
         <source src="hbd.mp3" type="audio/mpeg">
-    </audio>
+    </audio> -->
+
+    <audio id="birthdayMusicPlayer" preload="auto">
+    <source src="hbd.mp3" type="audio/mpeg">
+</audio>
+
+    <!-- Music Toggle -->
     <div class="music-toggle" id="musicToggle" title="Toggle Music">
         <span class="music-icon">🎵</span>
     </div>
+
+    <!-- Custom Cursor -->
     <div class="cursor"></div>
+
     <div class="container">
+
+        <!-- Countdown Section -->
         <div id="countdown-section" class="countdown-section">
-            <h2 class="countdown-title">Birthday Countdown</h2>
+
+            <h2 class="countdown-title">
+                Birthday Countdown
+            </h2>
+
             <div class="countdown-timer">
+
                 <div class="countdown-item">
                     <span id="days" class="countdown-number">00</span>
                     <span class="countdown-label">Days</span>
                 </div>
+
                 <div class="countdown-item">
                     <span id="hours" class="countdown-number">00</span>
                     <span class="countdown-label">Hours</span>
                 </div>
+
                 <div class="countdown-item">
                     <span id="minutes" class="countdown-number">00</span>
                     <span class="countdown-label">Minutes</span>
                 </div>
+
                 <div class="countdown-item">
                     <span id="seconds" class="countdown-number">00</span>
                     <span class="countdown-label">Seconds</span>
                 </div>
+
             </div>
         </div>
+
+        <!-- Birthday Content -->
         <div id="birthday-content" class="birthday-content" style="display: none;">
-            <!-- CUSTOMIZE: Change the age -->
-            <!-- CUSTOMIZE: Change the name -->
+
             <h1>Happy Birthday Rajila💗</h1>
-            <!-- CUSTOMIZE: Change nickname or remove this line -->
-            <p class="nickname-text">To my favorite birthday girl 💕</p>
+
+            <p class="nickname-text">
+                To my favorite birthday girl 💕
+            </p>
+
             <div class="greeting"></div>
-            <!-- CUSTOMIZE: Change your name -->
-            <p class="from-text">- From Gowtham 💖</p>
-            <button class="cta-button">Click to Enter 💕</button>
+
+            <p class="from-text">
+                - From Gowtham 💙
+            </p>
+
+            <button class="cta-button">
+                Click to Enter 💕
+            </button>
+
         </div>
+
     </div>
 
+    <!-- Your JavaScript -->
     <script src="home.js"></script>
+    <script src="music.js"></script>
+
 </body>
 </html>

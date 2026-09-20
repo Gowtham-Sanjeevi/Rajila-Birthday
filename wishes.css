@@ -25,7 +25,7 @@ body {
             color: #4a4a4a;
 }
 
-.custom-cursor {
+/* .custom-cursor {
     width: 30px;
     height: 30px;
     position: fixed;
@@ -39,6 +39,21 @@ body {
     width: 100%;
     height: 100%;
     filter: drop-shadow(0 0 5px rgba(255, 182, 193, 0.5));
+} */
+
+.custom-cursor {
+    width: 30px;
+    height: 30px;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s;
+}
+
+.custom-cursor svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 0 5px rgba(76, 165, 238, 0.5));
 }
 
 .container {

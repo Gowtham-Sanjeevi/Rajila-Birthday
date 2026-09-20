@@ -36,7 +36,7 @@
 
         .page-title {
             text-align: center;
-            color: white;
+            color: rgb(10, 10, 10);
             font-size: 2.5rem;
             margin-bottom: 1rem;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
@@ -44,7 +44,7 @@
 
         .page-subtitle {
             text-align: center;
-            color: rgba(255,255,255,0.9);
+            color: rgba(3, 3, 3, 0.9);
             font-size: 1.2rem;
             margin-bottom: 3rem;
         }
@@ -335,9 +335,13 @@
     </style>
 </head>
 <body>
-    <audio id="bgMusic" loop>
+    <!-- <audio id="bgMusic" preload="auto">
         <source src="hbd.mp3" type="audio/mpeg">
-    </audio>
+    </audio> -->
+
+    <audio id="birthdayMusicPlayer" preload="auto">
+    <source src="hbd.mp3" type="audio/mpeg">
+</audio>
     <div class="music-toggle" id="musicToggle" title="Toggle Music">
         <span class="music-icon">🎵</span>
     </div>
@@ -446,7 +450,7 @@
         <div class="receipt-footer">
             Thank you for being an amazing friend!<br>
             <!-- CUSTOMIZE: Change your name -->
-            - Gowtham 💖
+            - Gowtham 💙
         </div>
     </div>
 
@@ -516,5 +520,6 @@
             });
         }
     </script>
+    <script src="music.js"></script>
 </body>
 </html>
