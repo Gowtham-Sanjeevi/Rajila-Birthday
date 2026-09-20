@@ -1,12 +1,25 @@
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
-
-    <head>
+    <!-- ========================================= -->
+    <!-- BASIC HTML SETTINGS -->
+    <!-- ========================================= -->
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Happy Birthday Rajila 💗</title>
 
@@ -14,11 +27,12 @@
           content="A special birthday surprise from Gowtham 💖">
 
 
-    <!-- ========================= -->
-    <!-- FACEBOOK / WHATSAPP -->
-    <!-- ========================= -->
+    <!-- ========================================= -->
+    <!-- WHATSAPP / FACEBOOK / OPEN GRAPH -->
+    <!-- ========================================= -->
 
-    <meta property="og:type" content="website">
+    <meta property="og:type"
+          content="website">
 
     <meta property="og:title"
           content="Happy Birthday Rajila 💗">
@@ -33,13 +47,13 @@
           content="Rajila's Birthday">
 
     <meta property="og:image"
-          content="https://gowtham-sanjeevi.github.io/Rajila-Birthday/thumbnail.jpg">
+          content="https://gowtham-sanjeevi.github.io/Rajila-Birthday/thumbnail.png">
 
     <meta property="og:image:secure_url"
-          content="https://gowtham-sanjeevi.github.io/Rajila-Birthday/thumbnail.jpg">
+          content="https://gowtham-sanjeevi.github.io/Rajila-Birthday/thumbnail.png">
 
     <meta property="og:image:type"
-          content="image/jpeg">
+          content="image/png">
 
     <meta property="og:image:width"
           content="1200">
@@ -51,9 +65,9 @@
           content="Happy Birthday Rajila 💗">
 
 
-    <!-- ========================= -->
+    <!-- ========================================= -->
     <!-- TWITTER / X -->
-    <!-- ========================= -->
+    <!-- ========================================= -->
 
     <meta name="twitter:card"
           content="summary_large_image">
@@ -65,136 +79,292 @@
           content="A special birthday surprise from Gowtham 💖">
 
     <meta name="twitter:image"
-          content="https://gowtham-sanjeevi.github.io/Rajila-Birthday/thumbnail.jpg">
+          content="https://gowtham-sanjeevi.github.io/Rajila-Birthday/thumbnail.png">
 
     <meta name="twitter:image:alt"
           content="Happy Birthday Rajila 💗">
 
 
-    <!-- ========================= -->
+    <!-- ========================================= -->
+    <!-- GENERAL IMAGE PREVIEW -->
+    <!-- ========================================= -->
+
+    <link rel="image_src"
+          href="https://gowtham-sanjeevi.github.io/Rajila-Birthday/thumbnail.png">
+
+
+    <!-- ========================================= -->
     <!-- FAVICON -->
-    <!-- ========================= -->
+    <!-- ========================================= -->
 
     <link rel="icon"
-          href="https://gowtham-sanjeevi.github.io/Rajila-Birthday/thumbnail.jpg">
+          type="image/png"
+          href="favicon.png">
 
-</head>
+
+    <!-- ========================================= -->
+    <!-- GOOGLE FONT -->
+    <!-- ========================================= -->
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
 
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ========================================= -->
+    <!-- PRELOAD IMAGES -->
+    <!-- ========================================= -->
 
-    <!-- CUSTOMIZE: Change the title -->
-    <title>Happy Birthday</title>
+    <link rel="preload"
+          as="image"
+          href="photo-1.jpg">
 
-    <!-- CUSTOMIZE: Change favicon to your own icon -->
-    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="preload"
+          as="image"
+          href="photo-2.jpg">
 
-    <!-- Dancing Script Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload"
+          as="image"
+          href="photo-3.jpg">
 
-    <!-- Preload Images - CUSTOMIZE: Update with your image names -->
-    <link rel="preload" as="image" href="photo-1.jpg">
-    <link rel="preload" as="image" href="photo-2.jpg">
-    <link rel="preload" as="image" href="photo-3.jpg">
-    <link rel="preload" as="image" href="gif1.gif">
-    <link rel="preload" as="image" href="gif2.gif">
+    <link rel="preload"
+          as="image"
+          href="gif1.gif">
 
-    <!-- Preload Audio -->
-    <link rel="preload" as="audio" href="hbd.mp3">
+    <link rel="preload"
+          as="image"
+          href="gif2.gif">
 
+
+    <!-- ========================================= -->
+    <!-- PRELOAD MUSIC -->
+    <!-- ========================================= -->
+
+    <link rel="preload"
+          as="audio"
+          href="hbd.mp3">
+
+
+    <!-- ========================================= -->
     <!-- GSAP -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <!-- ========================================= -->
 
-    <!-- Your CSS -->
-    <link rel="stylesheet" href="home.css">
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js">
+    </script>
+
+
+    <!-- ========================================= -->
+    <!-- WEBSITE CSS -->
+    <!-- ========================================= -->
+
+    <link rel="stylesheet"
+          href="home.css">
+
 </head>
+
 
 <body>
 
-    <!-- Loading Screen -->
-    <div id="loading-screen" class="loading-screen">
-        <div class="loading-heart">💖</div>
-        <div class="loading-text">Loading magic...</div>
+
+    <!-- ========================================= -->
+    <!-- LOADING SCREEN -->
+    <!-- ========================================= -->
+
+    <div id="loading-screen"
+         class="loading-screen">
+
+        <div class="loading-heart">
+            💖
+        </div>
+
+        <div class="loading-text">
+            Loading magic...
+        </div>
+
     </div>
 
-    <!-- Background Music -->
-    <!-- <audio id="bgMusic" preload="auto">
+
+    <!-- ========================================= -->
+    <!-- BACKGROUND MUSIC -->
+    <!-- ========================================= -->
+
+    <!--
+    <audio id="bgMusic" preload="auto">
         <source src="hbd.mp3" type="audio/mpeg">
-    </audio> -->
+    </audio>
+    -->
 
-    <audio id="birthdayMusicPlayer" preload="auto">
-    <source src="hbd.mp3" type="audio/mpeg">
-</audio>
+    <audio id="birthdayMusicPlayer"
+           preload="auto">
 
-    <!-- Music Toggle -->
-    <div class="music-toggle" id="musicToggle" title="Toggle Music">
-        <span class="music-icon">🎵</span>
+        <source
+            src="hbd.mp3"
+            type="audio/mpeg">
+
+    </audio>
+
+
+    <!-- ========================================= -->
+    <!-- MUSIC TOGGLE -->
+    <!-- ========================================= -->
+
+    <div class="music-toggle"
+         id="musicToggle"
+         title="Toggle Music">
+
+        <span class="music-icon">
+            🎵
+        </span>
+
     </div>
 
-    <!-- Custom Cursor -->
+
+    <!-- ========================================= -->
+    <!-- CUSTOM CURSOR -->
+    <!-- ========================================= -->
+
     <div class="cursor"></div>
+
+
+    <!-- ========================================= -->
+    <!-- MAIN CONTAINER -->
+    <!-- ========================================= -->
 
     <div class="container">
 
-        <!-- Countdown Section -->
-        <div id="countdown-section" class="countdown-section">
+
+        <!-- ===================================== -->
+        <!-- COUNTDOWN -->
+        <!-- ===================================== -->
+
+        <div id="countdown-section"
+             class="countdown-section">
 
             <h2 class="countdown-title">
                 Birthday Countdown
             </h2>
 
+
             <div class="countdown-timer">
 
-                <div class="countdown-item">
-                    <span id="days" class="countdown-number">00</span>
-                    <span class="countdown-label">Days</span>
-                </div>
+
+                <!-- DAYS -->
 
                 <div class="countdown-item">
-                    <span id="hours" class="countdown-number">00</span>
-                    <span class="countdown-label">Hours</span>
+
+                    <span id="days"
+                          class="countdown-number">
+                        00
+                    </span>
+
+                    <span class="countdown-label">
+                        Days
+                    </span>
+
                 </div>
 
-                <div class="countdown-item">
-                    <span id="minutes" class="countdown-number">00</span>
-                    <span class="countdown-label">Minutes</span>
-                </div>
+
+                <!-- HOURS -->
 
                 <div class="countdown-item">
-                    <span id="seconds" class="countdown-number">00</span>
-                    <span class="countdown-label">Seconds</span>
+
+                    <span id="hours"
+                          class="countdown-number">
+                        00
+                    </span>
+
+                    <span class="countdown-label">
+                        Hours
+                    </span>
+
                 </div>
+
+
+                <!-- MINUTES -->
+
+                <div class="countdown-item">
+
+                    <span id="minutes"
+                          class="countdown-number">
+                        00
+                    </span>
+
+                    <span class="countdown-label">
+                        Minutes
+                    </span>
+
+                </div>
+
+
+                <!-- SECONDS -->
+
+                <div class="countdown-item">
+
+                    <span id="seconds"
+                          class="countdown-number">
+                        00
+                    </span>
+
+                    <span class="countdown-label">
+                        Seconds
+                    </span>
+
+                </div>
+
 
             </div>
+
         </div>
 
-        <!-- Birthday Content -->
-        <div id="birthday-content" class="birthday-content" style="display: none;">
 
-            <h1>Happy Birthday Rajila💗</h1>
+        <!-- ===================================== -->
+        <!-- BIRTHDAY CONTENT -->
+        <!-- ===================================== -->
+
+        <div id="birthday-content"
+             class="birthday-content"
+             style="display: none;">
+
+
+            <h1>
+                Happy Birthday Rajila💗
+            </h1>
+
 
             <p class="nickname-text">
                 To my favorite birthday girl 💕
             </p>
 
+
             <div class="greeting"></div>
+
 
             <p class="from-text">
                 - From Gowtham 💙
             </p>
 
+
             <button class="cta-button">
                 Click to Enter 💕
             </button>
 
+
         </div>
+
 
     </div>
 
-    <!-- Your JavaScript -->
+
+    <!-- ========================================= -->
+    <!-- WEBSITE JAVASCRIPT -->
+    <!-- ========================================= -->
+
     <script src="home.js"></script>
+
     <script src="music.js"></script>
 
+
 </body>
+
 </html>
