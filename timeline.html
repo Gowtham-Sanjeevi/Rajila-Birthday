@@ -1,525 +1,1677 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- CUSTOMIZE: Change the title -->
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>Our Journey 💫</title>
-    <!-- CUSTOMIZE: Change favicon -->
-    <link rel="icon" type="image/png" href="favicon.png">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="icon"
+          type="image/png"
+          href="favicon.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+
     <style>
+
+        /* =========================================
+           RESET
+        ========================================= */
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+
+        html {
+            width: 100%;
+            min-height: 100%;
+        }
+
+
         body {
             min-height: 100vh;
-            background: linear-gradient(135deg,
+            width: 100%;
+
+            background:
+                linear-gradient(
+                    135deg,
                     rgba(255, 209, 220, 0.85) 0%,
                     rgba(230, 230, 250, 0.85) 25%,
                     rgba(255, 239, 213, 0.85) 50%,
                     rgba(230, 230, 250, 0.85) 75%,
-                    rgba(255, 209, 220, 0.85) 100%),
-                    url('background-movable.gif');
-            background-size: 400% 400%, cover;
-            background-position: center, center;
+                    rgba(255, 209, 220, 0.85) 100%
+                ),
+                url('background-movable.gif');
+
+            background-size:
+                400% 400%,
+                cover;
+
+            background-position:
+                center,
+                center;
+
             background-attachment: fixed;
-            animation: gradientFlow 15s ease infinite;
-            font-family: 'Quicksand', sans-serif;
-            overflow-x: hidden;
+
+            animation:
+                gradientFlow 15s ease infinite;
+
+            font-family:
+                'Quicksand',
+                sans-serif;
+
             color: #4a4a4a;
+
+            overflow-x: hidden;
         }
+
+
+        @keyframes gradientFlow {
+
+            0% {
+                background-position:
+                    0% 50%,
+                    center;
+            }
+
+            50% {
+                background-position:
+                    100% 50%,
+                    center;
+            }
+
+            100% {
+                background-position:
+                    0% 50%,
+                    center;
+            }
+
+        }
+
+
+        /* =========================================
+           PAGE TITLE
+        ========================================= */
 
         .page-title {
+
             text-align: center;
+
+            margin-left: 58px;
+
             color: rgb(10, 10, 10);
+
             font-size: 2.5rem;
+
+            margin-top: 20px;
+
             margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+
+            text-shadow:
+                2px 2px 4px
+                rgba(0, 0, 0, 0.2);
         }
+
 
         .page-subtitle {
+
             text-align: center;
-            color: rgba(3, 3, 3, 0.9);
-            font-size: 1.2rem;
-            margin-bottom: 3rem;
+
+            color:
+                rgba(3, 3, 3, 0.9);
+
+            font-size: 1.1rem;
+
+            margin-bottom: 2rem;
+
+            margin-left: 40px;
         }
 
+
+        /* =========================================
+           TIMELINE
+        ========================================= */
+
         .timeline {
+
             max-width: 800px;
+
             margin: 0 auto;
+
             position: relative;
+
             padding: 2rem 0;
         }
 
+
         .timeline::before {
+
             content: '';
+
             position: absolute;
+
             left: 50%;
-            transform: translateX(-50%);
+
+            transform:
+                translateX(-50%);
+
             width: 4px;
+
             height: 100%;
-            background: rgba(255,255,255,0.3);
+
+            background:
+                rgba(255, 255, 255, 0.3);
+
             border-radius: 2px;
         }
 
+
         .timeline-item {
+
             display: flex;
-            justify-content: flex-end;
+
+            justify-content:
+                flex-end;
+
             padding-right: 50%;
+
             position: relative;
+
             margin-bottom: 3rem;
+
             opacity: 0;
-            transform: translateX(-50px);
+
+            transform:
+                translateX(-50px);
+
+            transition:
+                opacity 0.6s ease,
+                transform 0.6s ease;
         }
+
 
         .timeline-item:nth-child(even) {
-            justify-content: flex-start;
+
+            justify-content:
+                flex-start;
+
             padding-right: 0;
+
             padding-left: 50%;
-            transform: translateX(50px);
+
+            transform:
+                translateX(50px);
         }
+
 
         .timeline-item.visible {
+
             opacity: 1;
-            transform: translateX(0);
-            transition: all 0.6s ease;
+
+            transform:
+                translateX(0);
         }
 
+
         .timeline-content {
-            background: rgba(255,255,255,0.95);
+
+            background:
+                rgba(255, 255, 255, 0.95);
+
             padding: 1.5rem;
+
             border-radius: 15px;
+
             max-width: 350px;
-            margin: 0 2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+
+            margin:
+                0 2rem;
+
+            box-shadow:
+                0 10px 30px
+                rgba(0, 0, 0, 0.2);
+
             position: relative;
         }
 
+
         .timeline-dot {
+
             position: absolute;
+
             width: 20px;
+
             height: 20px;
-            background: #ffd700;
+
+            background:
+                #ffd700;
+
             border-radius: 50%;
+
             top: 50%;
-            transform: translateY(-50%);
-            box-shadow: 0 0 20px rgba(255,215,0,0.5);
+
+            transform:
+                translateY(-50%);
+
+            box-shadow:
+                0 0 20px
+                rgba(255, 215, 0, 0.5);
         }
 
-        .timeline-item:nth-child(odd) .timeline-dot {
-            right: calc(50% - 10px);
+
+        .timeline-item:nth-child(odd)
+        .timeline-dot {
+
+            right:
+                calc(50% - 10px);
         }
 
-        .timeline-item:nth-child(even) .timeline-dot {
-            left: calc(50% - 10px);
+
+        .timeline-item:nth-child(even)
+        .timeline-dot {
+
+            left:
+                calc(50% - 10px);
         }
+
 
         .timeline-date {
+
             font-size: 0.9rem;
-            /* CUSTOMIZE: Change date color */
-            color: #764ba2;
+
+            color:
+                #764ba2;
+
             font-weight: 700;
+
             margin-bottom: 0.5rem;
         }
+
 
         .timeline-title {
+
             font-size: 1.2rem;
+
             color: #333;
+
             font-weight: 600;
+
             margin-bottom: 0.5rem;
         }
 
+
         .timeline-desc {
+
             font-size: 1rem;
+
             color: #666;
+
             line-height: 1.5;
         }
 
+
         .timeline-emoji {
+
             font-size: 2rem;
+
             margin-bottom: 0.5rem;
         }
 
-        /* Friendship Receipt */
+
+        /* =========================================
+           FRIENDSHIP RECEIPT
+        ========================================= */
+
         .receipt-container {
+
             max-width: 400px;
-            margin: 3rem auto;
-            background: #fffef5;
-            padding: 2rem;
+
+            margin:
+                3rem auto;
+
+            background:
+                #fffef5;
+
+            padding:
+                2rem;
+
             border-radius: 5px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-            font-family: 'Courier New', monospace;
+
+            box-shadow:
+                0 5px 20px
+                rgba(0, 0, 0, 0.2);
+
+            font-family:
+                'Courier New',
+                monospace;
+
             position: relative;
         }
 
+
         .receipt-container::before,
         .receipt-container::after {
+
             content: '';
+
             position: absolute;
+
             left: 0;
             right: 0;
+
             height: 20px;
-            background: linear-gradient(45deg, transparent 33.33%, #fffef5 33.33%, #fffef5 66.66%, transparent 66.66%),
-                        linear-gradient(-45deg, transparent 33.33%, #fffef5 33.33%, #fffef5 66.66%, transparent 66.66%);
-            background-size: 20px 40px;
+
+            background:
+                linear-gradient(
+                    45deg,
+                    transparent 33.33%,
+                    #fffef5 33.33%,
+                    #fffef5 66.66%,
+                    transparent 66.66%
+                ),
+                linear-gradient(
+                    -45deg,
+                    transparent 33.33%,
+                    #fffef5 33.33%,
+                    #fffef5 66.66%,
+                    transparent 66.66%
+                );
+
+            background-size:
+                20px 40px;
         }
 
+
         .receipt-container::before {
+
             top: -10px;
         }
 
+
         .receipt-container::after {
+
             bottom: -10px;
-            transform: rotate(180deg);
+
+            transform:
+                rotate(180deg);
         }
+
 
         .receipt-header {
+
             text-align: center;
-            border-bottom: 2px dashed #333;
-            padding-bottom: 1rem;
-            margin-bottom: 1rem;
+
+            border-bottom:
+                2px dashed #333;
+
+            padding-bottom:
+                1rem;
+
+            margin-bottom:
+                1rem;
         }
+
 
         .receipt-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #333;
+
+            font-size:
+                1.5rem;
+
+            font-weight:
+                bold;
+
+            color:
+                #333;
         }
+
 
         .receipt-subtitle {
-            font-size: 0.9rem;
-            color: #666;
+
+            font-size:
+                0.9rem;
+
+            color:
+                #666;
         }
+
 
         .receipt-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.5rem 0;
-            border-bottom: 1px dotted #ccc;
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            gap: 15px;
+
+            padding:
+                0.5rem 0;
+
+            border-bottom:
+                1px dotted #ccc;
         }
+
 
         .receipt-label {
-            color: #333;
+
+            color:
+                #333;
         }
+
 
         .receipt-value {
-            /* CUSTOMIZE: Change value color */
-            color: #764ba2;
-            font-weight: bold;
+
+            color:
+                #764ba2;
+
+            font-weight:
+                bold;
+
+            text-align:
+                right;
         }
+
 
         .receipt-total {
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 2px dashed #333;
-            text-align: center;
-            font-size: 1.2rem;
+
+            margin-top:
+                1rem;
+
+            padding-top:
+                1rem;
+
+            border-top:
+                2px dashed #333;
+
+            text-align:
+                center;
+
+            font-size:
+                1.2rem;
         }
+
 
         .receipt-footer {
-            text-align: center;
-            margin-top: 1rem;
-            font-size: 0.8rem;
-            color: #888;
+
+            text-align:
+                center;
+
+            margin-top:
+                1rem;
+
+            font-size:
+                0.8rem;
+
+            color:
+                #888;
         }
+
+
+        /* =========================================
+           MEMORIES BUTTON
+        ========================================= */
 
         .next-btn {
-            display: block;
-            margin: 3rem auto;
-            padding: 1rem 2.5rem;
-            font-size: 1.2rem;
-            background: linear-gradient(45deg, #ffd700, #ffed4a);
-            border: none;
-            border-radius: 50px;
-            color: #333;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 5px 20px rgba(255,215,0,0.4);
-            transition: transform 0.3s, box-shadow 0.3s;
+
+            display:
+                block;
+
+            width:
+                max-content;
+
+            min-width:
+                260px;
+
+            margin:
+                3rem auto;
+
+            padding:
+                1rem 2.5rem;
+
+            font-size:
+                1.2rem;
+
+            font-family:
+                'Quicksand',
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    45deg,
+                    #ffd700,
+                    #ffed4a
+                );
+
+            border:
+                none;
+
+            border-radius:
+                50px;
+
+            color:
+                #333;
+
+            font-weight:
+                bold;
+
+            cursor:
+                pointer;
+
+            box-shadow:
+                0 5px 20px
+                rgba(255, 215, 0, 0.4);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+
+            touch-action:
+                manipulation;
+
+            -webkit-tap-highlight-color:
+                transparent;
+
+            -webkit-appearance:
+                none;
+
+            appearance:
+                none;
+
+            position:
+                relative;
+
+            z-index:
+                20;
+
+            user-select:
+                none;
+
+            outline:
+                none;
         }
+
 
         .next-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255,215,0,0.6);
+
+            transform:
+                translateY(-3px);
+
+            box-shadow:
+                0 8px 25px
+                rgba(255, 215, 0, 0.6);
         }
 
-        /* Music Toggle */
-        .music-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(45deg, #ffd700, #ffed4a);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 1000;
-            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
-            transition: transform 0.3s;
+
+        .next-btn:active {
+
+            transform:
+                scale(0.97);
         }
+
+
+        /* =========================================
+           MUSIC BUTTON
+        ========================================= */
+
+        .music-toggle {
+
+            position:
+                fixed;
+
+            top:
+                60px;
+
+            right:
+                60px;
+
+            width:
+                50px;
+
+            height:
+                50px;
+
+            background:
+                linear-gradient(
+                    45deg,
+                    #ffd700,
+                    #ffed4a
+                );
+
+            border-radius:
+                50%;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            cursor:
+                pointer;
+
+            z-index:
+                1000;
+
+            box-shadow:
+                0 4px 15px
+                rgba(255, 215, 0, 0.4);
+
+            transition:
+                transform 0.3s;
+        }
+
 
         .music-toggle:hover {
-            transform: scale(1.1);
+
+            transform:
+                scale(1.1);
         }
+
 
         .music-toggle.playing {
-            animation: pulse 1s ease-in-out infinite;
+
+            animation:
+                pulse 1s
+                ease-in-out
+                infinite;
         }
+
 
         .music-icon {
-            font-size: 1.5rem;
+
+            font-size:
+                1.5rem;
         }
+
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+
+            0%,
+            100% {
+                transform:
+                    scale(1);
+            }
+
+            50% {
+                transform:
+                    scale(1.1);
+            }
+
         }
 
-        /* Back Button */
+
+        /* =========================================
+           BACK BUTTON
+        ========================================= */
+
         .back-btn {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(45deg, #ffd700, #ffed4a);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 1000;
-            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
-            transition: transform 0.3s, box-shadow 0.3s;
-            text-decoration: none;
-            color: #333;
-            font-size: 1.5rem;
-            font-weight: bold;
+
+            position:
+                fixed;
+
+            top:
+                60px;
+
+            left:
+                20px;
+
+            width:
+                50px;
+
+            height:
+                50px;
+
+            background:
+                linear-gradient(
+                    45deg,
+                    #ffd700,
+                    #ffed4a
+                );
+
+            border-radius:
+                50%;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            cursor:
+                pointer;
+
+            z-index:
+                1000;
+
+            box-shadow:
+                0 4px 15px
+                rgba(255, 215, 0, 0.4);
+
+            transition:
+                transform 0.3s,
+                box-shadow 0.3s;
+
+            text-decoration:
+                none;
+
+            color:
+                #333;
+
+            font-size:
+                1.5rem;
+
+            font-weight:
+                bold;
         }
+
 
         .back-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.6);
+
+            transform:
+                scale(1.1);
+
+            box-shadow:
+                0 6px 20px
+                rgba(255, 215, 0, 0.6);
         }
 
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
         @media (max-width: 768px) {
-            .timeline::before {
-                left: 20px;
+
+            body {
+
+                background-attachment:
+                    scroll;
             }
+
+
+            .page-title {
+
+                font-size:
+                    1.5rem;
+
+                margin-left:
+                    17px;
+
+                margin-top:
+                    20px;
+
+                padding:
+                    0 65px;
+            }
+
+
+            .page-subtitle {
+
+                font-size:
+                    0.95rem;
+
+                margin-left:
+                    0;
+
+                padding:
+                    0 25px;
+
+                margin-bottom:
+                    1rem;
+            }
+
+
+            .timeline {
+
+                width:
+                    100%;
+
+                padding:
+                    1.5rem 10px;
+            }
+
+
+            .timeline::before {
+
+                left:
+                    20px;
+            }
+
 
             .timeline-item,
             .timeline-item:nth-child(even) {
-                padding-left: 50px;
-                padding-right: 0;
-                justify-content: flex-start;
+
+                padding-left:
+                    50px;
+
+                padding-right:
+                    0;
+
+                justify-content:
+                    flex-start;
             }
 
-            .timeline-item:nth-child(odd) .timeline-dot,
-            .timeline-item:nth-child(even) .timeline-dot {
-                left: 10px;
-                right: auto;
+
+            .timeline-item:nth-child(odd)
+            .timeline-dot,
+
+            .timeline-item:nth-child(even)
+            .timeline-dot {
+
+                left:
+                    10px;
+
+                right:
+                    auto;
             }
+
+
+            .timeline-content {
+
+                width:
+                    calc(100vw - 80px);
+
+                max-width:
+                    none;
+
+                margin-left:
+                    0;
+
+                margin-right:
+                    0;
+
+                padding:
+                    1.2rem;
+            }
+
+
+            .timeline-emoji {
+
+                font-size:
+                    1.8rem;
+            }
+
+
+            .timeline-date {
+
+                font-size:
+                    0.85rem;
+            }
+
+
+            .timeline-title {
+
+                font-size:
+                    1.1rem;
+            }
+
+
+            .timeline-desc {
+
+                font-size:
+                    0.95rem;
+            }
+
+
+            .receipt-container {
+
+                width:
+                    calc(100% - 30px);
+
+                margin:
+                    3rem auto;
+            }
+
+
+            .receipt-row {
+
+                gap:
+                    10px;
+            }
+
+
+            .receipt-label,
+            .receipt-value {
+
+                font-size:
+                    0.8rem;
+            }
+
+
+            .receipt-title {
+
+                font-size:
+                    1.25rem;
+            }
+
+
+            .receipt-total {
+
+                font-size:
+                    1rem;
+            }
+
+
+            .next-btn {
+
+                width:
+                    calc(100% - 40px);
+
+                max-width:
+                    350px;
+
+                min-width:
+                    0;
+
+                margin:
+                    3rem auto;
+
+                padding:
+                    1rem 1.2rem;
+
+                font-size:
+                    1.05rem;
+            }
+
+
+            .music-toggle {
+
+                top:
+                    60px;
+
+                right:
+                    60px;
+
+                width:
+                    45px;
+
+                height:
+                    45px;
+            }
+
+
+            .back-btn {
+
+                top:
+                    60px;
+
+                left:
+                    20px;
+
+                width:
+                    45px;
+
+                height:
+                    45px;
+            }
+
+        }
+
+
+        /* =========================================
+           SMALL PHONES
+        ========================================= */
+
+        @media (max-width: 390px) {
 
             .page-title {
-                font-size: 1.8rem;
+
+                font-size:
+                    1.35rem;
+
+                padding:
+                    0 55px;
             }
+
+
+            .page-subtitle {
+
+                font-size:
+                    0.88rem;
+            }
+
+
+            .timeline-content {
+
+                width:
+                    calc(100vw - 70px);
+
+                padding:
+                    1rem;
+            }
+
+
+            .receipt-container {
+
+                width:
+                    calc(100% - 20px);
+
+                padding:
+                    1.3rem;
+            }
+
+
+            .receipt-label,
+            .receipt-value {
+
+                font-size:
+                    0.72rem;
+            }
+
         }
+
     </style>
 </head>
+
+
 <body>
-    <!-- <audio id="bgMusic" preload="auto">
-        <source src="hbd.mp3" type="audio/mpeg">
-    </audio> -->
 
-    <audio id="birthdayMusicPlayer" preload="auto">
-    <source src="hbd.mp3" type="audio/mpeg">
-</audio>
-    <div class="music-toggle" id="musicToggle" title="Toggle Music">
-        <span class="music-icon">🎵</span>
+
+    <!-- =========================================
+         AUDIO
+    ========================================= -->
+
+    <audio id="birthdayMusicPlayer"
+           preload="auto">
+
+        <source src="hbd.mp3"
+                type="audio/mpeg">
+
+    </audio>
+
+
+    <!-- =========================================
+         MUSIC TOGGLE
+    ========================================= -->
+
+    <div class="music-toggle"
+         id="musicToggle"
+         title="Toggle Music">
+
+        <span class="music-icon">
+            🎵
+        </span>
+
     </div>
-    <a href="wishes.html" class="back-btn" title="Go Back">←</a>
 
-    <!-- CUSTOMIZE: Change the title and subtitle -->
-    <h1 class="page-title">Our Journey Together 💫</h1>
-    <p class="page-subtitle">From Strangers to Best Friends</p>
+
+    <!-- =========================================
+         BACK BUTTON
+    ========================================= -->
+
+    <a href="wishes.html"
+       class="back-btn"
+       title="Go Back">
+
+        ←
+
+    </a>
+
+
+    <!-- =========================================
+         HEADER
+    ========================================= -->
+
+    <h1 class="page-title">
+
+        Our Journey Together 💫
+
+    </h1>
+
+
+    <p class="page-subtitle">
+
+        From Strangers to Best Friends
+
+    </p>
+
+
+    <!-- =========================================
+         TIMELINE
+    ========================================= -->
 
     <div class="timeline">
-        <!-- CUSTOMIZE: Add your timeline events here -->
-        <!-- Copy and paste timeline-item blocks for more events -->
+
+
+        <!-- 01 -->
 
         <div class="timeline-item">
+
             <div class="timeline-dot"></div>
+
             <div class="timeline-content">
-                <div class="timeline-emoji">💬</div>
-                <!-- CUSTOMIZE: Change date -->
-                <div class="timeline-date">January 1, 2023</div>
-                <!-- CUSTOMIZE: Change title -->
-                <div class="timeline-title">First Meeting</div>
-                <!-- CUSTOMIZE: Change description -->
-                <div class="timeline-desc">The day we first met! Little did we know this would be the start of an amazing journey.</div>
+
+                <div class="timeline-emoji">
+                    💬
+                </div>
+
+                <div class="timeline-date">
+                    September 30, 2015
+                </div>
+
+                <div class="timeline-title">
+                    First Meeting
+                </div>
+
+                <div class="timeline-desc">
+
+                    The day we first met!
+                    Little did we know this would be
+                    the start of an amazing journey.
+
+                </div>
+
             </div>
+
         </div>
 
-        <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-                <div class="timeline-emoji">🤝</div>
-                <div class="timeline-date">March 15, 2023</div>
-                <div class="timeline-title">Becoming Friends</div>
-                <div class="timeline-desc">The friendship started feeling more real! We began spending more time together.</div>
-            </div>
-        </div>
+
+        <!-- 02 -->
 
         <div class="timeline-item">
+
             <div class="timeline-dot"></div>
+
             <div class="timeline-content">
-                <div class="timeline-emoji">😊</div>
-                <div class="timeline-date">June 20, 2023</div>
-                <div class="timeline-title">First Adventure</div>
-                <div class="timeline-desc">Our first adventure together! An unforgettable experience that brought us closer.</div>
+
+                <div class="timeline-emoji">
+                    🫂
+                </div>
+
+                <div class="timeline-date">
+                    October 03, 2015
+                </div>
+
+                <div class="timeline-title">
+                    Becoming Friends
+                </div>
+
+                <div class="timeline-desc">
+
+                    The friendship started feeling more real!
+                    We began spending more time together.
+
+                </div>
+
             </div>
+
         </div>
 
-        <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-                <div class="timeline-emoji">⚡</div>
-                <div class="timeline-date">Through The Journey</div>
-                <div class="timeline-title">Ups and Downs</div>
-                <div class="timeline-desc">We've had our moments, but we always found our way back. That's what real friendship is about!</div>
-            </div>
-        </div>
+
+        <!-- 03 -->
 
         <div class="timeline-item">
+
             <div class="timeline-dot"></div>
+
             <div class="timeline-content">
-                <div class="timeline-emoji">🎂</div>
-                <!-- CUSTOMIZE: Change to their birthday date -->
-                <div class="timeline-date">January 25, 2025</div>
-                <div class="timeline-title">Your Birthday!</div>
-                <!-- CUSTOMIZE: Update the message -->
-                <div class="timeline-desc">And here we are, celebrating YOU! Another year of our amazing friendship... 💖</div>
+
+                <div class="timeline-emoji">
+                    😊
+                </div>
+
+                <div class="timeline-date">
+                    October 10, 2015
+                </div>
+
+                <div class="timeline-title">
+                    First Adventure
+                </div>
+
+                <div class="timeline-desc">
+
+                    Our first adventure together!
+                    An unforgettable experience that brought
+                    us closer.
+
+                </div>
+
             </div>
+
         </div>
+
+
+        <!-- 04 -->
+
+        <div class="timeline-item">
+
+            <div class="timeline-dot"></div>
+
+            <div class="timeline-content">
+
+                <div class="timeline-emoji">
+                    ⚡
+                </div>
+
+                <div class="timeline-date">
+                    Through The Journey
+                </div>
+
+                <div class="timeline-title">
+                    Ups and Downs
+                </div>
+
+                <div class="timeline-desc">
+
+                    We've had our moments, but we always
+                    found our way back.
+                    That's what real friendship is about!
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 05 -->
+
+        <div class="timeline-item">
+
+            <div class="timeline-dot"></div>
+
+            <div class="timeline-content">
+
+                <div class="timeline-emoji">
+                    🎂
+                </div>
+
+                <div class="timeline-date">
+                    September 28, 2026
+                </div>
+
+                <div class="timeline-title">
+                    Your Birthday!
+                </div>
+
+                <div class="timeline-desc">
+
+                    And here we are, celebrating YOU!
+                    Another year of our amazing friendship... 💖
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
-    <!-- Friendship Receipt - CUSTOMIZE all values -->
+
+    <!-- =========================================
+         FRIENDSHIP RECEIPT
+    ========================================= -->
+
     <div class="receipt-container">
+
+
         <div class="receipt-header">
-            <div class="receipt-title">🧾 FRIENDSHIP RECEIPT</div>
-            <!-- CUSTOMIZE: Change subtitle -->
-            <div class="receipt-subtitle">Best Friends Inc.</div>
+
+            <div class="receipt-title">
+                🧾 FRIENDSHIP RECEIPT
+            </div>
+
+            <div class="receipt-subtitle">
+                Best Friends Inc.
+            </div>
+
         </div>
+
+
         <div class="receipt-row">
-            <span class="receipt-label">Years of Friendship:</span>
-            <!-- CUSTOMIZE: Update value -->
-            <span class="receipt-value">2+ years</span>
+
+            <span class="receipt-label">
+                Years of Friendship:
+            </span>
+
+            <span class="receipt-value">
+                10+ years
+            </span>
+
         </div>
+
+
         <div class="receipt-row">
-            <span class="receipt-label">First Meeting:</span>
-            <!-- CUSTOMIZE: Update date -->
-            <span class="receipt-value">Jan 1, 2023</span>
+
+            <span class="receipt-label">
+                First Meeting:
+            </span>
+
+            <span class="receipt-value">
+                Sep 30, 2015
+            </span>
+
         </div>
+
+
         <div class="receipt-row">
-            <span class="receipt-label">Adventures Together:</span>
-            <span class="receipt-value">Many 📍</span>
+
+            <span class="receipt-label">
+                Adventures Together:
+            </span>
+
+            <span class="receipt-value">
+                Many 📍
+            </span>
+
         </div>
+
+
         <div class="receipt-row">
-            <span class="receipt-label">Laughs Shared:</span>
-            <span class="receipt-value">Countless 😄</span>
+
+            <span class="receipt-label">
+                Laughs Shared:
+            </span>
+
+            <span class="receipt-value">
+                Countless 😄
+            </span>
+
         </div>
+
+
         <div class="receipt-row">
-            <span class="receipt-label">Inside Jokes:</span>
-            <span class="receipt-value">Too many!</span>
+
+            <span class="receipt-label">
+                Inside Jokes:
+            </span>
+
+            <span class="receipt-value">
+                Too many!
+            </span>
+
         </div>
+
+
         <div class="receipt-row">
-            <span class="receipt-label">Memories Made:</span>
-            <span class="receipt-value">∞ Infinite</span>
+
+            <span class="receipt-label">
+                Memories Made:
+            </span>
+
+            <span class="receipt-value">
+                ∞ Infinite
+            </span>
+
         </div>
+
+
         <div class="receipt-total">
-            <strong>TOTAL FRIENDSHIP VALUE: PRICELESS 💖</strong>
+
+            <strong>
+                TOTAL FRIENDSHIP VALUE:
+                PRICELESS 💖
+            </strong>
+
         </div>
+
+
         <div class="receipt-footer">
-            Thank you for being an amazing friend!<br>
-            <!-- CUSTOMIZE: Change your name -->
+
+            Thank you for being an amazing friend!
+            <br>
+
             - Gowtham 💙
+
         </div>
+
     </div>
 
-    <button class="next-btn" onclick="goToMemories()">View Our Memories 📸</button>
+
+    <!-- =========================================
+         MEMORIES BUTTON
+         =========================================
+         
+         IMPORTANT:
+         This is a real BUTTON.
+         No form.
+         No GSAP.
+         No external JavaScript.
+         
+    ========================================= -->
+
+    <button type="button"
+            class="next-btn"
+            onclick="window.location.href='memories.html';">
+
+        View Our Memories 📸
+
+    </button>
+
+
+    <!-- =========================================
+         JAVASCRIPT
+    ========================================= -->
 
     <script>
-        // Music Control
-        const bgMusic = document.getElementById('bgMusic');
-        const musicToggle = document.getElementById('musicToggle');
-        const musicIcon = musicToggle.querySelector('.music-icon');
 
-        function toggleMusic() {
-            if (bgMusic.paused) {
-                bgMusic.play();
-                musicToggle.classList.add('playing');
-                musicIcon.textContent = '🎵';
-                localStorage.setItem('musicPlaying', 'true');
-            } else {
-                bgMusic.pause();
-                musicToggle.classList.remove('playing');
-                musicIcon.textContent = '🔇';
-                localStorage.setItem('musicPlaying', 'false');
+        /* =========================================
+           MUSIC
+        ========================================= */
+
+        (function () {
+
+            const music =
+                document.getElementById(
+                    "birthdayMusicPlayer"
+                );
+
+            const toggle =
+                document.getElementById(
+                    "musicToggle"
+                );
+
+            if (!music || !toggle) {
+                return;
             }
-        }
 
-        musicToggle.addEventListener('click', toggleMusic);
 
-        if (localStorage.getItem('musicPlaying') === 'true') {
-            bgMusic.play().then(() => {
-                musicToggle.classList.add('playing');
-                musicIcon.textContent = '🎵';
-            }).catch(() => {
-                musicIcon.textContent = '🔇';
-            });
-        }
+            const icon =
+                toggle.querySelector(
+                    ".music-icon"
+                );
 
-        // Timeline animation on scroll
-        const timelineItems = document.querySelectorAll('.timeline-item');
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+            toggle.addEventListener(
+                "click",
+                function (event) {
+
+                    event.preventDefault();
+
+                    if (music.paused) {
+
+                        music.play()
+                            .then(function () {
+
+                                toggle.classList.add(
+                                    "playing"
+                                );
+
+                                if (icon) {
+                                    icon.textContent =
+                                        "🎵";
+                                }
+
+                                localStorage.setItem(
+                                    "musicPlaying",
+                                    "true"
+                                );
+
+                            })
+                            .catch(function () {
+
+                                if (icon) {
+                                    icon.textContent =
+                                        "🔇";
+                                }
+
+                            });
+
+                    } else {
+
+                        music.pause();
+
+                        toggle.classList.remove(
+                            "playing"
+                        );
+
+                        if (icon) {
+                            icon.textContent =
+                                "🔇";
+                        }
+
+                        localStorage.setItem(
+                            "musicPlaying",
+                            "false"
+                        );
+
+                    }
+
                 }
-            });
-        }, { threshold: 0.3 });
+            );
 
-        timelineItems.forEach(item => observer.observe(item));
 
-        // Initial animation for visible items
-        setTimeout(() => {
-            timelineItems.forEach((item, index) => {
-                setTimeout(() => {
-                    item.classList.add('visible');
-                }, index * 200);
-            });
-        }, 500);
+            /* Restore music state */
 
-        // Navigation
-        function goToMemories() {
-            gsap.to('body', {
-                opacity: 0,
-                duration: 0.8,
-                onComplete: () => {
-                    window.location.href = 'memories.html';
-                }
-            });
-        }
+            if (
+                localStorage.getItem(
+                    "musicPlaying"
+                ) === "true"
+            ) {
+
+                music.play()
+                    .then(function () {
+
+                        toggle.classList.add(
+                            "playing"
+                        );
+
+                        if (icon) {
+                            icon.textContent =
+                                "🎵";
+                        }
+
+                    })
+                    .catch(function () {
+
+                        if (icon) {
+                            icon.textContent =
+                                "🔇";
+                        }
+
+                    });
+
+            }
+
+        })();
+
+
+        /* =========================================
+           TIMELINE ANIMATION
+        ========================================= */
+
+        (function () {
+
+            const items =
+                document.querySelectorAll(
+                    ".timeline-item"
+                );
+
+
+            if (!items.length) {
+                return;
+            }
+
+
+            /* Show items when scrolling */
+
+            if (
+                "IntersectionObserver"
+                in window
+            ) {
+
+                const observer =
+                    new IntersectionObserver(
+                        function (entries) {
+
+                            entries.forEach(
+                                function (entry) {
+
+                                    if (
+                                        entry.isIntersecting
+                                    ) {
+
+                                        entry.target.classList.add(
+                                            "visible"
+                                        );
+
+                                    }
+
+                                }
+                            );
+
+                        },
+                        {
+                            threshold: 0.1
+                        }
+                    );
+
+
+                items.forEach(
+                    function (item) {
+
+                        observer.observe(item);
+
+                    }
+                );
+
+            }
+
+
+            /* Initial animation */
+
+            setTimeout(
+                function () {
+
+                    items.forEach(
+                        function (item, index) {
+
+                            setTimeout(
+                                function () {
+
+                                    item.classList.add(
+                                        "visible"
+                                    );
+
+                                },
+                                index * 150
+                            );
+
+                        }
+                    );
+
+                },
+                200
+            );
+
+        })();
+
     </script>
-    <script src="music.js"></script>
+
+
 </body>
 </html>

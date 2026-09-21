@@ -162,7 +162,7 @@ h1 {
 /* Music Toggle Button */
 .music-toggle {
     position: fixed;
-    top: 20px;
+    top: 60px;
     right: 20px;
     width: 50px;
     height: 50px;
@@ -294,4 +294,113 @@ h1 {
 @media (hover: none) and (pointer: coarse) {
     * { cursor: auto !important; }
     .cursor { display: none !important; }
+}
+
+
+
+
+/* =========================================
+   COUNTDOWN - MOBILE
+   ========================================= */
+
+@media (max-width: 768px) {
+
+    .countdown-section {
+        padding: 0 6px;
+        width: 100%;
+    }
+
+    .countdown-title {
+        font-size: 2.2rem;
+        margin-bottom: 1.6rem;
+    }
+
+    .countdown-timer {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: stretch;
+        gap: 11px;
+        width: 100%;
+    }
+
+    .countdown-item {
+        flex: 1 1 0;
+        min-width: 0;
+        padding: 1.5rem 0.4rem;
+        border-radius: 16px;
+    }
+
+    .countdown-number {
+        font-size: 2.7rem;
+    }
+
+    .countdown-label {
+        font-size: 0.78rem;
+        margin-top: 0.55rem;
+        white-space: nowrap;
+    }
+
+    .countdown-item:hover {
+        transform: none;
+    }
+}
+
+
+/* =========================================
+   SMALL MOBILE
+   ========================================= */
+
+@media (max-width: 480px) {
+
+    .countdown-section {
+        padding: 0 5px;
+    }
+
+    .countdown-title {
+        font-size: 2rem;
+        margin-bottom: 1.4rem;
+    }
+
+    .countdown-timer {
+        gap: 7px;
+    }
+
+    .countdown-item {
+        padding: 1.35rem 0.25rem;
+        border-radius: 15px;
+    }
+
+    .countdown-number {
+        font-size: 2.4rem;
+    }
+
+    .countdown-label {
+        font-size: 0.7rem;
+        margin-top: 0.5rem;
+    }
+}
+
+
+/* =========================================
+   VERY SMALL PHONES
+   ========================================= */
+
+@media (max-width: 360px) {
+
+    .countdown-timer {
+        gap: 5px;
+    }
+
+    .countdown-item {
+        padding: 1.2rem 0.15rem;
+    }
+
+    .countdown-number {
+        font-size: 2.1rem;
+    }
+
+    .countdown-label {
+        font-size: 0.62rem;
+    }
 }
