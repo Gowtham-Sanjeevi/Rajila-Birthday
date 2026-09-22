@@ -86,6 +86,16 @@
 // }
 
 
+//
+
+
+
+
+
+
+
+
+
 const music = document.getElementById("birthdayMusicPlayer");
 const toggle = document.getElementById("musicToggle");
 
@@ -109,48 +119,101 @@ if (music) {
         sessionStorage.removeItem(stateKey);
     }
 
-    const savedTime = sessionStorage.getItem(timeKey);
-    const savedState = sessionStorage.getItem(stateKey);
 
-    // Restore position when moving between pages
+    const savedTime =
+        sessionStorage.getItem(timeKey);
+
+    const savedState =
+        sessionStorage.getItem(stateKey);
+
+
+    // =====================================================
+    // RESTORE MUSIC POSITION + CONTINUE MUSIC
+    // =====================================================
+
     music.addEventListener("loadedmetadata", () => {
 
         if (savedTime) {
 
-            const time = Number(savedTime);
+            const time =
+                Number(savedTime);
 
             if (
                 !isNaN(time) &&
                 time >= 0 &&
                 time < music.duration
             ) {
-                music.currentTime = time;
+
+                music.currentTime =
+                    time;
+
             }
         }
+
+
+        // Continue music on next page
+        if (savedState === "playing") {
+
+            music.play().catch(() => {
+
+                /*
+                 * Browser autoplay restriction.
+                 *
+                 * The music position is already restored.
+                 * If autoplay is blocked, the existing music
+                 * button can start it without losing the position.
+                 */
+
+            });
+
+        }
+
     });
 
-    // Continue music on next page
-    if (savedState === "playing") {
 
-        music.play().catch(() => {
-            // Browser may block autoplay
-        });
-    }
+    // =====================================================
+    // FALLBACK WHEN AUDIO IS ALREADY READY
+    // =====================================================
 
-    // Save current position
+    music.addEventListener("canplay", () => {
+
+        if (
+            savedState === "playing" &&
+            music.paused
+        ) {
+
+            music.play().catch(() => {});
+
+        }
+
+    });
+
+
+    // =====================================================
+    // SAVE CURRENT POSITION
+    // =====================================================
+
     setInterval(() => {
 
-        if (!music.paused && !music.ended) {
+        if (
+            !music.paused &&
+            !music.ended
+        ) {
 
             sessionStorage.setItem(
                 timeKey,
                 music.currentTime
             );
+
         }
 
     }, 300);
 
-    // Save position when changing page
+
+    // =====================================================
+    // SAVE POSITION WHEN CHANGING PAGE
+    // =====================================================
+
     window.addEventListener("pagehide", () => {
 
         if (!music.ended) {
@@ -159,10 +222,16 @@ if (music) {
                 timeKey,
                 music.currentTime
             );
+
         }
+
     });
 
-    // Playing
+
+    // =====================================================
+    // PLAYING
+    // =====================================================
+
     music.addEventListener("play", () => {
 
         sessionStorage.setItem(
@@ -170,20 +239,34 @@ if (music) {
             "playing"
         );
 
+
         if (toggle) {
 
             toggle.classList.add("playing");
 
+
             const icon =
-                toggle.querySelector(".music-icon");
+                toggle.querySelector(
+                    ".music-icon"
+                );
+
 
             if (icon) {
-                icon.textContent = "🎵";
+
+                icon.textContent =
+                    "🎵";
+
             }
+
         }
+
     });
 
-    // Paused
+
+    // =====================================================
+    // PAUSED
+    // =====================================================
+
     music.addEventListener("pause", () => {
 
         if (!music.ended) {
@@ -192,37 +275,62 @@ if (music) {
                 stateKey,
                 "paused"
             );
+
         }
+
 
         if (toggle) {
 
             toggle.classList.remove("playing");
 
+
             const icon =
-                toggle.querySelector(".music-icon");
+                toggle.querySelector(
+                    ".music-icon"
+                );
+
 
             if (icon) {
-                icon.textContent = "🔇";
+
+                icon.textContent =
+                    "🔇";
+
             }
+
         }
+
     });
 
-    // Song finished → restart
+
+    // =====================================================
+    // SONG FINISHED → RESTART
+    // =====================================================
+
     music.addEventListener("ended", () => {
 
-        sessionStorage.removeItem(timeKey);
+        sessionStorage.removeItem(
+            timeKey
+        );
+
 
         sessionStorage.setItem(
             stateKey,
             "playing"
         );
 
+
         music.currentTime = 0;
 
+
         music.play().catch(() => {});
+
     });
 
-    // Music button
+
+    // =====================================================
+    // MUSIC BUTTON
+    // =====================================================
+
     if (toggle) {
 
         toggle.addEventListener("click", () => {
@@ -234,8 +342,11 @@ if (music) {
             } else {
 
                 music.pause();
+
             }
 
         });
+
     }
+
 }
