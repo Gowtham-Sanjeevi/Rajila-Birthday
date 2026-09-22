@@ -450,7 +450,7 @@
         // Confetti Animation
         const canvas = document.getElementById('confetti-canvas');
         const ctx = canvas.getContext('2d');
-        let confettiPieces = [];
+        // var confettiPieces = [];
         let animationId;
 
         function resizeCanvas() {
@@ -488,11 +488,11 @@
             }
         }
 
-        function createConfetti() {
-            for (let i = 0; i < 150; i++) {
-                confettiPieces.push(new Confetti());
-            }
-        }
+        // function createConfetti() {
+        //     for (let i = 0; i < 150; i++) {
+        //         confettiPieces.push(new Confetti());
+        //     }
+        // }
 
         function animateConfetti() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -511,14 +511,61 @@
             }
         }
 
-        function celebrate() {
-            event.preventDefault();
-            createConfetti();
-            animateConfetti();
+        // function celebrate() {
+        //     event.preventDefault();
+        //     createConfetti();
+        //     animateConfetti();
 
-            setTimeout(() => { createConfetti(); }, 500);
-            setTimeout(() => { createConfetti(); }, 1000);
+        //     setTimeout(() => { createConfetti(); }, 500);
+        //     setTimeout(() => { createConfetti(); }, 1000);
+        // }
+
+
+       let confettiPieces = [];
+
+function createConfetti() {
+    for (let i = 0; i < 150; i++) {
+        confettiPieces.push(new Confetti());
+    }
+}
+
+function animateConfetti() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    confettiPieces.forEach((piece, index) => {
+
+        piece.update();
+        piece.draw();
+
+        if (piece.y > canvas.height) {
+            confettiPieces.splice(index, 1);
         }
+
+    });
+
+    if (confettiPieces.length > 0) {
+        animationId = requestAnimationFrame(animateConfetti);
+    } else {
+        animationId = null;
+    }
+}
+
+function celebrate() {
+
+    event.preventDefault();
+
+    for (let i = 0; i < 150; i++) {
+        const piece = new Confetti();
+
+        piece.y = -Math.random() * canvas.height;
+
+        confettiPieces.push(piece);
+    }
+
+    if (!animationId) {
+        animateConfetti();
+    }
+}
 
         // Share function - CUSTOMIZE: Update the share message
         // function shareWebsite() {
