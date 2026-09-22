@@ -279,3 +279,12 @@ h1 {
     * { cursor: auto !important; }
     .cursor, .custom-cursor { display: none !important; }
 }
+
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    cursor: auto;
+}

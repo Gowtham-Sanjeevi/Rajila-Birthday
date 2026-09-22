@@ -1,39 +1,7 @@
-// Music control
-const bgMusic = document.getElementById('bgMusic');
-const musicToggle = document.getElementById('musicToggle');
-const musicIcon = musicToggle.querySelector('.music-icon');
+// ======================================================
+// WISHES PAGE
+// ======================================================
 
-function toggleMusic() {
-    if (bgMusic.paused) {
-        bgMusic.play();
-        musicToggle.classList.add('playing');
-        musicIcon.textContent = '🎵';
-        localStorage.setItem('musicPlaying', 'true');
-    } else {
-        bgMusic.pause();
-        musicToggle.classList.remove('playing');
-        musicIcon.textContent = '🔇';
-        localStorage.setItem('musicPlaying', 'false');
-    }
-}
-
-musicToggle.addEventListener('click', toggleMusic);
-
-// Check if music was playing on previous page
-if (localStorage.getItem('musicPlaying') === 'true') {
-    bgMusic.play().then(() => {
-        musicToggle.classList.add('playing');
-        musicIcon.textContent = '🎵';
-    }).catch(() => {
-        musicIcon.textContent = '🔇';
-    });
-}
-
-// ===== CUSTOMIZE: Add your reasons here! =====
-// Each reason has:
-// - text: The message to display
-// - emoji: An emoji shown before the text
-// - gif: Animation file to show (optional, use animation-1.gif or animation-2.gif)
 const reasons = [
     {
         text: "Because you always know how to make me smile! 💖",
@@ -60,129 +28,350 @@ const reasons = [
         emoji: "🎊",
         gif: "gif1.gif"
     }
-    // Add more reasons as needed!
 ];
 
-// State management
+
+// ======================================================
+// ELEMENTS
+// ======================================================
+
+const reasonsContainer =
+    document.getElementById("reasons-container");
+
+const shuffleButton =
+    document.querySelector(".shuffle-button");
+
+const reasonCounter =
+    document.querySelector(".reason-counter");
+
+
+// ======================================================
+// STATE
+// ======================================================
+
 let currentReasonIndex = 0;
-const reasonsContainer = document.getElementById('reasons-container');
-const shuffleButton = document.querySelector('.shuffle-button');
-const reasonCounter = document.querySelector('.reason-counter');
-let isTransitioning = false;
+let showingTimelineButton = false;
+let clickLocked = false;
 
-// Create reason card with gif
+
+// ======================================================
+// CREATE REASON CARD
+// ======================================================
+
 function createReasonCard(reason) {
-    const card = document.createElement('div');
-    card.className = 'reason-card';
 
-    const text = document.createElement('div');
-    text.className = 'reason-text';
-    text.innerHTML = `${reason.emoji} ${reason.text}`;
+    const card = document.createElement("div");
 
-    const gifOverlay = document.createElement('div');
-    gifOverlay.className = 'gif-overlay';
-    gifOverlay.innerHTML = `<img src="${reason.gif}" alt="Celebration">`;
+    card.className = "reason-card";
+
+    const text = document.createElement("div");
+
+    text.className = "reason-text";
+
+    text.textContent =
+        `${reason.emoji} ${reason.text}`;
+
+
+    const gifOverlay =
+        document.createElement("div");
+
+    gifOverlay.className =
+        "gif-overlay";
+
+
+    const gif =
+        document.createElement("img");
+
+    gif.src = reason.gif;
+
+    gif.alt = "Celebration";
+
+
+    gifOverlay.appendChild(gif);
 
     card.appendChild(text);
+
     card.appendChild(gifOverlay);
 
-    gsap.from(card, {
-        opacity: 0,
-        y: 50,
-        duration: 0.5,
-        ease: "back.out"
-    });
+
+    // Card animation
+
+    gsap.fromTo(
+        card,
+        {
+            opacity: 0,
+            y: 50
+        },
+        {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            ease: "back.out(1.7)"
+        }
+    );
+
 
     return card;
 }
 
-// Display new reason
+
+// ======================================================
+// DISPLAY NEXT REASON
+// ======================================================
+
 function displayNewReason() {
-    if (isTransitioning) return;
-    isTransitioning = true;
 
-    if (currentReasonIndex < reasons.length) {
-        const card = createReasonCard(reasons[currentReasonIndex]);
-        reasonsContainer.appendChild(card);
+    if (currentReasonIndex >= reasons.length) {
 
-        // Update counter
-        reasonCounter.textContent = `Reason ${currentReasonIndex + 1} of ${reasons.length}`;
+        goToTimeline();
 
-        currentReasonIndex++;
+        return;
+    }
 
-        // Check if we should transform the button
-        if (currentReasonIndex === reasons.length) {
-            gsap.to(shuffleButton, {
-                scale: 1.1,
-                duration: 0.5,
-                ease: "elastic.out",
-                onComplete: () => {
-                    // CUSTOMIZE: Change button text
-                    shuffleButton.textContent = "Continue to Timeline 💫";
-                    shuffleButton.classList.add('story-mode');
-                    shuffleButton.addEventListener('click', () => {
-                        gsap.to('body', {
-                            opacity: 0,
-                            duration: 1,
-                            onComplete: () => {
-                                window.location.href = 'timeline.html';
-                            }
-                        });
-                    });
-                }
-            });
-        }
 
-        // Create floating elements
-        createFloatingElement();
+    const reason =
+        reasons[currentReasonIndex];
+
+
+    const card =
+        createReasonCard(reason);
+
+
+    reasonsContainer.appendChild(card);
+
+
+    // Counter
+
+    reasonCounter.textContent =
+        `Reason ${currentReasonIndex + 1} of ${reasons.length}`;
+
+
+    currentReasonIndex++;
+
+
+    // Floating animation
+
+    createFloatingElement();
+
+
+    // Last reason reached
+
+    if (currentReasonIndex === reasons.length) {
 
         setTimeout(() => {
-            isTransitioning = false;
-        }, 500);
-    } else {
-        window.location.href = "timeline.html";
+
+            showingTimelineButton = true;
+
+            shuffleButton.textContent =
+                "Continue to Timeline 💫";
+
+            shuffleButton.classList.add(
+                "story-mode"
+            );
+
+        }, 300);
+
     }
+
 }
 
-// Initialize button click
-shuffleButton.addEventListener('click', () => {
-    gsap.to(shuffleButton, {
-        scale: 0.9,
-        duration: 0.1,
-        yoyo: true,
-        repeat: 1
-    });
-    displayNewReason();
-});
 
-// Floating elements function
+// ======================================================
+// BUTTON CLICK
+// ======================================================
+
+shuffleButton.addEventListener(
+    "click",
+    function (event) {
+
+        event.preventDefault();
+
+        event.stopPropagation();
+
+
+        // If already showing timeline button
+        if (showingTimelineButton) {
+
+            goToTimeline();
+
+            return;
+        }
+
+
+        // Prevent accidental double-click
+        if (clickLocked) {
+            return;
+        }
+
+
+        clickLocked = true;
+
+
+        // Small click animation
+
+        gsap.killTweensOf(shuffleButton);
+
+        gsap.to(shuffleButton, {
+
+            scale: 0.92,
+
+            duration: 0.08,
+
+            onComplete: function () {
+
+                gsap.to(shuffleButton, {
+
+                    scale:
+                        currentReasonIndex === reasons.length - 1
+                            ? 1.1
+                            : 1,
+
+                    duration: 0.15
+
+                });
+
+            }
+
+        });
+
+
+        // Immediately show next reason
+
+        displayNewReason();
+
+
+        // Unlock quickly
+
+        setTimeout(() => {
+
+            clickLocked = false;
+
+        }, 250);
+
+    }
+);
+
+
+// ======================================================
+// GO TO TIMELINE
+// ======================================================
+
+function goToTimeline() {
+
+    // Prevent multiple navigation calls
+
+    if (document.body.classList.contains("leaving-page")) {
+        return;
+    }
+
+
+    document.body.classList.add(
+        "leaving-page"
+    );
+
+
+    gsap.killTweensOf("body");
+
+
+    gsap.to("body", {
+
+        opacity: 0,
+
+        duration: 0.6,
+
+        ease: "power2.out",
+
+        onComplete: function () {
+
+            window.location.href =
+                "timeline.html";
+
+        }
+
+    });
+
+}
+
+
+// ======================================================
+// FLOATING ELEMENTS
+// ======================================================
+
 function createFloatingElement() {
-    const elements = ['🌸', '✨', '💖', '🦋', '⭐'];
-    const element = document.createElement('div');
-    element.className = 'floating';
-    element.textContent = elements[Math.floor(Math.random() * elements.length)];
-    element.style.left = Math.random() * window.innerWidth + 'px';
-    element.style.top = Math.random() * window.innerHeight + 'px';
-    element.style.fontSize = (Math.random() * 20 + 10) + 'px';
+
+    const elements = [
+        "🌸",
+        "✨",
+        "💖",
+        "🦋",
+        "⭐"
+    ];
+
+
+    const element =
+        document.createElement("div");
+
+
+    element.className =
+        "floating";
+
+
+    element.textContent =
+        elements[
+            Math.floor(
+                Math.random() *
+                elements.length
+            )
+        ];
+
+
+    element.style.left =
+        Math.random() *
+        window.innerWidth +
+        "px";
+
+
+    element.style.top =
+        Math.random() *
+        window.innerHeight +
+        "px";
+
+
+    element.style.fontSize =
+        (
+            Math.random() * 20 +
+            10
+        ) + "px";
+
+
     document.body.appendChild(element);
 
+
     gsap.to(element, {
+
         y: -500,
-        duration: Math.random() * 10 + 10,
+
+        duration:
+            Math.random() * 10 + 10,
+
         opacity: 0,
-        onComplete: () => element.remove()
+
+        onComplete: function () {
+
+            element.remove();
+
+        }
+
     });
+
 }
 
-// Custom cursor
-const cursor = document.querySelector('.custom-cursor');
-document.addEventListener('mousemove', (e) => {
-    gsap.to(cursor, {
-        x: e.clientX - 15,
-        y: e.clientY - 15,
-        duration: 0.2
-    });
-});
 
-// Create initial floating elements
-setInterval(createFloatingElement, 2000);
+// ======================================================
+// CONTINUOUS FLOATING ELEMENTS
+// ======================================================
+
+setInterval(
+    createFloatingElement,
+    2000
+);
