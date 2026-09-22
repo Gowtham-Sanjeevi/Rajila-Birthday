@@ -169,7 +169,6 @@
 
 
 
-
 // ======================================================
 // GLOBAL BIRTHDAY MUSIC
 // Works across GitHub Pages navigation
@@ -180,16 +179,26 @@
     const TIME_KEY = "birthdayMusicTime";
     const STATE_KEY = "birthdayMusicState";
 
-    const music = document.getElementById("birthdayMusicPlayer");
-    const toggle = document.getElementById("musicToggle");
-    const icon = toggle?.querySelector(".music-icon");
+    const music =
+        document.getElementById("birthdayMusicPlayer");
+
+    const toggle =
+        document.getElementById("musicToggle");
+
+    const icon =
+        toggle?.querySelector(".music-icon");
+
 
     if (!music) {
+
         console.log("❌ Music player not found");
+
         return;
     }
 
+
     console.log("🎵 Music system loaded");
+
 
     // ==================================================
     // UPDATE BUTTON
@@ -200,7 +209,9 @@
         if (!icon) return;
 
         icon.textContent =
-            music.paused ? "🎵" : "🔊";
+            music.paused
+                ? "🎵"
+                : "🔊";
     }
 
 
@@ -210,46 +221,88 @@
 
     function savePosition() {
 
-        const currentTime = music.currentTime;
+        const currentTime =
+            music.currentTime;
+
 
         if (
-            Number.isFinite(currentTime) &&
-            currentTime >= 0
+            !Number.isFinite(currentTime) ||
+            currentTime < 0
+        ) {
+            return;
+        }
+
+
+        localStorage.setItem(
+            TIME_KEY,
+            String(currentTime)
+        );
+
+
+        localStorage.setItem(
+            STATE_KEY,
+            music.paused
+                ? "paused"
+                : "playing"
+        );
+
+
+        sessionStorage.setItem(
+            TIME_KEY,
+            String(currentTime)
+        );
+
+
+        sessionStorage.setItem(
+            STATE_KEY,
+            music.paused
+                ? "paused"
+                : "playing"
+        );
+
+    }
+
+
+    // ==================================================
+    // GET SAVED TIME
+    // ==================================================
+
+    function getSavedTime() {
+
+        let savedTime =
+            sessionStorage.getItem(
+                TIME_KEY
+            );
+
+
+        if (
+            savedTime === null
         ) {
 
-            const time = currentTime.toString();
+            savedTime =
+                localStorage.getItem(
+                    TIME_KEY
+                );
 
-            // Persistent
-            localStorage.setItem(
-                TIME_KEY,
-                time
-            );
-
-            localStorage.setItem(
-                STATE_KEY,
-                music.paused
-                    ? "paused"
-                    : "playing"
-            );
-
-            // Backup for this website session
-            sessionStorage.setItem(
-                TIME_KEY,
-                time
-            );
-
-            sessionStorage.setItem(
-                STATE_KEY,
-                music.paused
-                    ? "paused"
-                    : "playing"
-            );
-
-            console.log(
-                "💾 Music saved:",
-                currentTime
-            );
         }
+
+
+        const time =
+            parseFloat(savedTime);
+
+
+        if (
+            Number.isFinite(time) &&
+            time >= 0
+        ) {
+
+            return time;
+
+        }
+
+
+        return 0;
+
     }
 
 
@@ -259,73 +312,136 @@
 
     function restorePosition() {
 
-        let savedTime =
-            sessionStorage.getItem(TIME_KEY);
-
-        if (!savedTime) {
-            savedTime =
-                localStorage.getItem(TIME_KEY);
-        }
-
         const time =
-            parseFloat(savedTime);
+            getSavedTime();
+
 
         if (
-            Number.isFinite(time) &&
+            Number.isFinite(music.duration) &&
+            music.duration > 0 &&
             time >= 0 &&
             time < music.duration
         ) {
 
-            music.currentTime = time;
+            try {
 
-            console.log(
-                "↩️ Music restored:",
-                time
-            );
+                music.currentTime =
+                    time;
+
+
+                console.log(
+                    "↩️ Music restored:",
+                    time
+                );
+
+            } catch (error) {
+
+                console.log(
+                    "⚠️ Could not restore position"
+                );
+
+            }
+
         }
+
     }
 
 
     // ==================================================
-    // RESTORE PLAYING STATE
+    // GET MUSIC STATE
     // ==================================================
 
-    function restoreMusic() {
+    function getMusicState() {
 
         let state =
-            sessionStorage.getItem(STATE_KEY);
+            sessionStorage.getItem(
+                STATE_KEY
+            );
 
-        if (!state) {
+
+        if (
+            state === null
+        ) {
+
             state =
-                localStorage.getItem(STATE_KEY);
+                localStorage.getItem(
+                    STATE_KEY
+                );
+
         }
 
-        if (state !== "playing") {
-            updateButton();
-            return;
-        }
+
+        return state;
+
+    }
+
+
+    // ==================================================
+    // TRY PLAYING
+    // ==================================================
+
+    async function tryPlayMusic() {
 
         restorePosition();
 
-        music.play()
-            .then(() => {
 
-                console.log(
-                    "▶️ Music continued:",
-                    music.currentTime
-                );
+        try {
 
-                updateButton();
+            await music.play();
 
-            })
-            .catch(() => {
 
-                console.log(
-                    "⚠️ Browser blocked autoplay"
-                );
+            console.log(
+                "▶️ Music playing:",
+                music.currentTime
+            );
 
-                updateButton();
-            });
+
+            updateButton();
+
+
+            return true;
+
+
+        } catch (error) {
+
+            console.log(
+                "⚠️ Automatic playback blocked"
+            );
+
+
+            updateButton();
+
+
+            return false;
+
+        }
+
+    }
+
+
+    // ==================================================
+    // RESTORE MUSIC
+    // ==================================================
+
+    async function restoreMusic() {
+
+        const state =
+            getMusicState();
+
+
+        if (
+            state !== "playing"
+        ) {
+
+            updateButton();
+
+            return;
+
+        }
+
+
+        await tryPlayMusic();
+
     }
 
 
@@ -333,63 +449,101 @@
     // AUDIO READY
     // ==================================================
 
-    music.addEventListener(
-        "loadedmetadata",
-        () => {
+    function audioReady() {
 
-            restorePosition();
+        restorePosition();
 
-            restoreMusic();
+        restoreMusic();
 
-        },
-        { once: true }
-    );
+    }
+
+
+    if (
+        music.readyState >= 1
+    ) {
+
+        audioReady();
+
+    } else {
+
+        music.addEventListener(
+            "loadedmetadata",
+            audioReady,
+            {
+                once: true
+            }
+        );
+
+    }
 
 
     // ==================================================
-    // SAVE WHILE PLAYING
+    // SAVE POSITION WHILE PLAYING
     // ==================================================
 
     music.addEventListener(
         "timeupdate",
-        savePosition
+        function () {
+
+            /*
+             * Save frequently enough to keep the
+             * position accurate without needing
+             * another complicated system.
+             */
+
+            localStorage.setItem(
+                TIME_KEY,
+                String(music.currentTime)
+            );
+
+
+            sessionStorage.setItem(
+                TIME_KEY,
+                String(music.currentTime)
+            );
+
+        }
     );
 
 
     // ==================================================
-    // PLAY
+    // PLAY EVENT
     // ==================================================
 
     music.addEventListener(
         "play",
-        () => {
+        function () {
 
             localStorage.setItem(
                 STATE_KEY,
                 "playing"
             );
 
+
             sessionStorage.setItem(
                 STATE_KEY,
                 "playing"
             );
 
+
             updateButton();
+
         }
     );
 
 
     // ==================================================
-    // PAUSE
+    // PAUSE EVENT
     // ==================================================
 
     music.addEventListener(
         "pause",
-        () => {
+        function () {
 
             savePosition();
 
             updateButton();
+
         }
     );
 
@@ -402,65 +556,115 @@
 
         toggle.addEventListener(
             "click",
-            async () => {
+            async function (event) {
+
+                event.preventDefault();
+
+                event.stopPropagation();
+
+
+                // --------------------------------------
+                // START MUSIC
+                // --------------------------------------
 
                 if (music.paused) {
+
+                    /*
+                     * IMPORTANT:
+                     *
+                     * Restore the position BEFORE
+                     * calling play().
+                     *
+                     * This click is a user gesture,
+                     * so the browser normally allows
+                     * playback.
+                     */
+
+                    restorePosition();
+
 
                     try {
 
                         await music.play();
+
 
                         localStorage.setItem(
                             STATE_KEY,
                             "playing"
                         );
 
+
                         sessionStorage.setItem(
                             STATE_KEY,
                             "playing"
                         );
 
+
                         updateButton();
+
+
+                        console.log(
+                            "▶️ Music started:",
+                            music.currentTime
+                        );
+
 
                     } catch (error) {
 
                         console.log(
-                            "Music play failed:",
+                            "❌ Music play failed:",
                             error
                         );
+
                     }
 
-                } else {
+
+                }
+
+                // --------------------------------------
+                // PAUSE MUSIC
+                // --------------------------------------
+
+                else {
 
                     music.pause();
 
                     savePosition();
 
                     updateButton();
+
                 }
+
             }
         );
+
     }
 
 
     // ==================================================
-    // SAVE BEFORE PAGE NAVIGATION
+    // SAVE BEFORE PAGE HIDDEN
     // ==================================================
 
     document.addEventListener(
         "visibilitychange",
-        () => {
+        function () {
 
             if (
                 document.visibilityState ===
                 "hidden"
             ) {
+
                 savePosition();
+
             }
 
         }
     );
 
+
+    // ==================================================
+    // SAVE BEFORE NAVIGATION
+    // ==================================================
 
     window.addEventListener(
         "pagehide",
@@ -480,33 +684,43 @@
 
     music.addEventListener(
         "ended",
-        () => {
+        function () {
 
             localStorage.setItem(
                 TIME_KEY,
                 "0"
             );
 
+
             sessionStorage.setItem(
                 TIME_KEY,
                 "0"
             );
+
 
             localStorage.setItem(
                 STATE_KEY,
                 "paused"
             );
 
+
             sessionStorage.setItem(
                 STATE_KEY,
                 "paused"
             );
+
 
             updateButton();
+
         }
     );
 
 
+    // ==================================================
+    // INITIAL BUTTON STATE
+    // ==================================================
+
     updateButton();
+
 
 })();
