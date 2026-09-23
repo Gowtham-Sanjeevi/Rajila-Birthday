@@ -445,7 +445,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // CONFIGURATION
     // =========================================================
 
-    const birthdayDate = new Date('September 23, 2026 07:10:00').getTime();
+    const birthdayDate = new Date('September 24, 2026 00:00:00').getTime();
 
     const greetingText =
         "Hey Rajila! You're one of the most amazing people I've ever known! 💖";
