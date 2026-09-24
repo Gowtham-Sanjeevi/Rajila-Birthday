@@ -1417,121 +1417,121 @@
            MUSIC
         ========================================= */
 
-        (function () {
+        // (function () {
 
-            const music =
-                document.getElementById(
-                    "birthdayMusicPlayer"
-                );
+        //     const music =
+        //         document.getElementById(
+        //             "birthdayMusicPlayer"
+        //         );
 
-            const toggle =
-                document.getElementById(
-                    "musicToggle"
-                );
+        //     const toggle =
+        //         document.getElementById(
+        //             "musicToggle"
+        //         );
 
-            if (!music || !toggle) {
-                return;
-            }
-
-
-            const icon =
-                toggle.querySelector(
-                    ".music-icon"
-                );
+        //     if (!music || !toggle) {
+        //         return;
+        //     }
 
 
-            toggle.addEventListener(
-                "click",
-                function (event) {
-
-                    event.preventDefault();
-
-                    if (music.paused) {
-
-                        music.play()
-                            .then(function () {
-
-                                toggle.classList.add(
-                                    "playing"
-                                );
-
-                                if (icon) {
-                                    icon.textContent =
-                                        "🎵";
-                                }
-
-                                localStorage.setItem(
-                                    "musicPlaying",
-                                    "true"
-                                );
-
-                            })
-                            .catch(function () {
-
-                                if (icon) {
-                                    icon.textContent =
-                                        "🔇";
-                                }
-
-                            });
-
-                    } else {
-
-                        music.pause();
-
-                        toggle.classList.remove(
-                            "playing"
-                        );
-
-                        if (icon) {
-                            icon.textContent =
-                                "🔇";
-                        }
-
-                        localStorage.setItem(
-                            "musicPlaying",
-                            "false"
-                        );
-
-                    }
-
-                }
-            );
+        //     const icon =
+        //         toggle.querySelector(
+        //             ".music-icon"
+        //         );
 
 
-            /* Restore music state */
+        //     toggle.addEventListener(
+        //         "click",
+        //         function (event) {
 
-            if (
-                localStorage.getItem(
-                    "musicPlaying"
-                ) === "true"
-            ) {
+        //             event.preventDefault();
 
-                music.play()
-                    .then(function () {
+        //             if (music.paused) {
 
-                        toggle.classList.add(
-                            "playing"
-                        );
+        //                 music.play()
+        //                     .then(function () {
 
-                        if (icon) {
-                            icon.textContent =
-                                "🎵";
-                        }
+        //                         toggle.classList.add(
+        //                             "playing"
+        //                         );
 
-                    })
-                    .catch(function () {
+        //                         if (icon) {
+        //                             icon.textContent =
+        //                                 "🎵";
+        //                         }
 
-                        if (icon) {
-                            icon.textContent =
-                                "🔇";
-                        }
+        //                         localStorage.setItem(
+        //                             "musicPlaying",
+        //                             "true"
+        //                         );
 
-                    });
+        //                     })
+        //                     .catch(function () {
 
-            }
+        //                         if (icon) {
+        //                             icon.textContent =
+        //                                 "🔇";
+        //                         }
 
-        })();
+        //                     });
+
+        //             } else {
+
+        //                 music.pause();
+
+        //                 toggle.classList.remove(
+        //                     "playing"
+        //                 );
+
+        //                 if (icon) {
+        //                     icon.textContent =
+        //                         "🔇";
+        //                 }
+
+        //                 localStorage.setItem(
+        //                     "musicPlaying",
+        //                     "false"
+        //                 );
+
+        //             }
+
+        //         }
+        //     );
+
+
+        //     /* Restore music state */
+
+        //     if (
+        //         localStorage.getItem(
+        //             "musicPlaying"
+        //         ) === "true"
+        //     ) {
+
+        //         music.play()
+        //             .then(function () {
+
+        //                 toggle.classList.add(
+        //                     "playing"
+        //                 );
+
+        //                 if (icon) {
+        //                     icon.textContent =
+        //                         "🎵";
+        //                 }
+
+        //             })
+        //             .catch(function () {
+
+        //                 if (icon) {
+        //                     icon.textContent =
+        //                         "🔇";
+        //                 }
+
+        //             });
+
+        //     }
+
+        // })();
 
 
         /* =========================================
