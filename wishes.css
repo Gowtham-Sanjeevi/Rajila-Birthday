@@ -267,6 +267,9 @@ h1 {
     color: white;
     font-size: 1.5rem;
     font-weight: bold;
+
+    padding-bottom: 8px;
+
 }
 
 .back-btn:hover {

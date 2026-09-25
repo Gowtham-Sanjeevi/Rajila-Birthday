@@ -457,10 +457,10 @@ document.addEventListener('DOMContentLoaded', function () {
         '💖', '💕', '💗', '💓', '💞',
         '💘', '💝', '❤️', '🩷', '💜',
         '✨', '🌟', '⭐', '💫',
-        '🌸', '🌺', '🌼',
-        '🦋', '🎀', '💐', '🪽',
+        '🌸', '🌼',
+        '🦋', '🎀', '💐',
         '💖', '✨', '🌸', '🦋', '💕',
-        '💗', '💫', '🌷', '💝', '❤️'
+        '💗', '💫', '💝', '❤️'
     ];
 
 
@@ -505,21 +505,21 @@ document.addEventListener('DOMContentLoaded', function () {
         musicToggle.style.display = 'flex';
 
         // Small entrance animation
-        if (typeof gsap !== 'undefined') {
-            gsap.fromTo(
-                musicToggle,
-                {
-                    opacity: 0,
-                    scale: 0.5
-                },
-                {
-                    opacity: 1,
-                    scale: 1,
-                    duration: 0.6,
-                    ease: "back.out(1.7)"
-                }
-            );
-        }
+        // if (typeof gsap !== 'undefined') {
+        //     gsap.fromTo(
+        //         musicToggle,
+        //         {
+        //             opacity: 0,
+        //             scale: 0.5
+        //         },
+        //         {
+        //             opacity: 1,
+        //             scale: 1,
+        //             duration: 0.6,
+        //             ease: "back.out(1.7)"
+        //         }
+        //     );
+        // }
     }
 
 
@@ -686,63 +686,125 @@ document.addEventListener('DOMContentLoaded', function () {
     // FLOATING ELEMENTS
     // =========================================================
 
+    // function createFloating() {
+
+    //     const element =
+    //         document.createElement('div');
+
+    //     element.className = 'floating';
+
+    //     element.textContent =
+    //         floatingElements[
+    //             Math.floor(
+    //                 Math.random() *
+    //                 floatingElements.length
+    //             )
+    //         ];
+
+
+    //     element.style.left =
+    //         Math.random() * 100 + 'vw';
+
+    //     element.style.top =
+    //         Math.random() * 100 + 'vh';
+
+    //     element.style.fontSize =
+    //         (Math.random() * 20 + 20) + 'px';
+
+
+    //     document.body.appendChild(element);
+
+
+    //     if (typeof gsap !== 'undefined') {
+
+    //         gsap.to(element, {
+
+    //             y: -500,
+
+    //             x:
+    //                 Math.random() * 100 - 50,
+
+    //             rotation:
+    //                 Math.random() * 360,
+
+    //             duration:
+    //                 Math.random() * 5 + 5,
+
+    //             opacity: 1,
+
+    //             ease: "none",
+
+    //             onComplete: function () {
+    //                 element.remove();
+    //             }
+
+    //         });
+
+    //     }
+
+    // }
+
+
+
+
+
     function createFloating() {
 
-        const element =
-            document.createElement('div');
+    const element = document.createElement('div');
 
-        element.className = 'floating';
+    element.className = 'floating';
 
-        element.textContent =
-            floatingElements[
-                Math.floor(
-                    Math.random() *
-                    floatingElements.length
-                )
-            ];
+    element.textContent =
+        floatingElements[
+            Math.floor(
+                Math.random() *
+                floatingElements.length
+            )
+        ];
 
+    // Position inside viewport
+    element.style.position = 'fixed';
 
-        element.style.left =
-            Math.random() * 100 + 'vw';
+    element.style.left =
+        Math.random() * 100 + 'vw';
 
-        element.style.top =
-            Math.random() * 100 + 'vh';
+    element.style.top =
+        Math.random() * 100 + 'vh';
 
-        element.style.fontSize =
-            (Math.random() * 20 + 20) + 'px';
+    element.style.fontSize =
+        (Math.random() * 20 + 20) + 'px';
 
+    element.style.pointerEvents = 'none';
 
-        document.body.appendChild(element);
+    document.body.appendChild(element);
 
+    if (typeof gsap !== 'undefined') {
 
-        if (typeof gsap !== 'undefined') {
+        gsap.to(element, {
 
-            gsap.to(element, {
+            // Keep the original floating movement
+            y: -500,
 
-                y: -500,
+            x: Math.random() * 100 - 50,
 
-                x:
-                    Math.random() * 100 - 50,
+            rotation: Math.random() * 360,
 
-                rotation:
-                    Math.random() * 360,
+            duration: Math.random() * 5 + 5,
 
-                duration:
-                    Math.random() * 5 + 5,
+            opacity: 1,
 
-                opacity: 1,
+            ease: "none",
 
-                ease: "none",
+            onComplete: function () {
+                element.remove();
+            }
 
-                onComplete: function () {
-                    element.remove();
-                }
-
-            });
-
-        }
+        });
 
     }
+
+}
+
 
 
     setInterval(
